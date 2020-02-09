@@ -2,7 +2,7 @@ package render
 
 import (
 	"io"
-	"strconv"
+	"time"
 
 	"github.com/olekukonko/tablewriter"
 	"github.com/unravela/gitwrk/worklog"
@@ -19,20 +19,20 @@ func Table(wlogs worklog.WorkLogs, out io.Writer) {
 	table.SetFooterAlignment(tablewriter.ALIGN_RIGHT)
 
 	// header
-	table.SetHeader([]string{"When", "Author", "Type", "Scope", "Duration (min)"})
+	table.SetHeader([]string{"When", "Author", "Type", "Scope", "Spent"})
 
 	// rows
-	durationTotal := 0
+	spentTotal := int64(0)
 	for _, wlog := range wlogs {
 		when := wlog.When.Format("2006-01-02 15:04:05")
-		duration := int(wlog.Duration.Minutes())
-		durationTotal += duration
+		spent := wlog.Spent.String()
+		spentTotal += int64(wlog.Spent)
 		scmType := wlog.Scm.Type
 		scmScope := wlog.Scm.Scope
-		table.Append([]string{when, wlog.Author, scmType, scmScope, strconv.Itoa(duration)})
+		table.Append([]string{when, wlog.Author, scmType, scmScope, spent})
 	}
 
 	// total footer
-	table.SetFooter([]string{"", "", "", "Total", strconv.Itoa(durationTotal)})
+	table.SetFooter([]string{"", "", "", "Total", time.Duration(spentTotal).String()})
 	table.Render()
 }

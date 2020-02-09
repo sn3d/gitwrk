@@ -6,10 +6,10 @@ import (
 
 // WorkLog is main structure representing working log
 type WorkLog struct {
-	Author   string
-	When     time.Time
-	Duration *time.Duration
-	Scm      *SemanticCommitMessage
+	Author string
+	When   time.Time
+	Spent  time.Duration
+	Scm    *SemanticCommitMessage
 }
 
 // WorkLogs is array of WorkLog-s
@@ -29,10 +29,10 @@ func Create(author string, when time.Time, msg string) WorkLogs {
 		w := when.AddDate(0, 0, (i * -1))
 
 		log := WorkLog{
-			Author:   author,
-			When:     w,
-			Scm:      scm,
-			Duration: &d,
+			Author: author,
+			When:   w,
+			Scm:    scm,
+			Spent:  d.Round(time.Minute),
 		}
 
 		output = append(output, log)
