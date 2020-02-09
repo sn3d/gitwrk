@@ -26,7 +26,7 @@ func main() {
 			&cli.StringFlag{
 				Name:    "output",
 				Aliases: []string{"o"},
-				Usage:   "Type of output. Can be 'json' or 'table'. The default is 'table'",
+				Usage:   "Type of output. Can be 'json', 'csv' or 'table'. The default is 'table'",
 				Value:   "table",
 			},
 			&cli.StringFlag{
@@ -142,6 +142,10 @@ func mainCmd(ctx *cli.Context) error {
 	case "json":
 		render.JSON(wlogs, os.Stdout)
 		break
+	case "csv":
+		render.Csv(wlogs, os.Stdout)
+		break
+
 	}
 
 	return nil
