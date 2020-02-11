@@ -31,3 +31,32 @@ This approach has several advantages: 
 - We can analyze where are our bottlenecks, where we’re burning too many of our work time.
 
 Programming isn't 100% of our daily work of course. Sometimes you have a meeting, sometimes some administrative work to do, but programming is still a majority.The `--allow-empty` flag allows you to track also non-coding work. 
+
+## Installation
+
+### Linux
+
+Download the `gitwrk` archive
+
+```
+wget https://github.com/unravela/gitwrk/releases/download/v1.0/gitwrk-1.0-linux-amd64.tar.gz
+```
+
+Untar the file and copy to the right place.
+
+```
+tar -xzvf ./gitwrk-1.0-linux-amd64.tar.gz -C /tmp/
+sudo mv /tmp/gitwrk /usr/local/bin
+```
+
+Test if app is running
+
+```
+gitwrk --help
+```
+
+### Windows
+
+- Download the gitwrk [archive](https://github.com/unravela/gitwrk/releases/download/v1.0/gitwrk-1.0-win-amd64.zip). 
+- Unzip it and run the `gitwrk.exe`
+
