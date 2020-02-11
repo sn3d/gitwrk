@@ -34,7 +34,7 @@ Programming isn't 100% of our daily work of course. Sometimes you have a meeting
 
 ## Installation
 
-### Linux
+### Install on Linux
 
 Download the `gitwrk` archive
 
@@ -55,8 +55,80 @@ Test if app is running
 gitwrk --help
 ```
 
-### Windows
+### Install on Windows
 
 - Download the gitwrk [archive](https://github.com/unravela/gitwrk/releases/download/v1.0/gitwrk-1.0-win-amd64.zip). 
 - Unzip it and run the `gitwrk.exe`
 
+
+## How to use
+
+The best way how to explore what gitwrk offers you is by help page:
+
+```
+    gitwrk --help
+```
+
+By default, the `gitwrk` will create report for all users for all commits. If you want to create report for concrete contributor in current month, you can use combination of flags `-current-month` and `--author`.
+
+### Time frames
+
+```
+    gitwrk --current-month --author me@company.com
+```
+
+You can also request report for last finished month:
+
+```
+    gitwrk --last-month --author me@company.com
+```
+
+If you wish report for some time window e.g. since November of 2019 to Jaunary 2020, you can use flags `--since` and `--till`:
+
+```
+    gitwrk --since 2019-11-01 --till 2020-01-31
+```
+
+### Semantic commit message
+
+The `gitwrk` is also supporting filtering by type and scope of [semantic commit message](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716). You can use flags `--type` and `--scope` for filtering. For example you want to know how many hours you spent on documentation:
+
+```
+    gitwrk --type docs --author me@company.com
+```
+
+Or how many hours spent developers on `module-a` last month:
+
+```
+    gitwrk --scope module-a --last-month
+```
+
+### JSON and CSV output
+
+The `gitwrk` can produce also JSON or CSV reports. This is usefull if you want to automatize and export your work hours to external systems. All you need is tell the gitwrk the output format via `--output` or `-o` flag. 
+
+```
+    gitwrk --last-month --author me@copmany.com -o json
+```
+
+This command will produce output:
+```
+[
+        {
+                "when": "2020-02-11T17:27:24+01:00",
+                "author": "me@company.com",
+                "scm_type": "docs",
+                "scm_scope": "",
+                "spent": "30m0s",
+                "spent_minutes": 30
+        },
+        {
+                "when": "2020-02-10T17:12:04+01:00",
+                "author": "me@gmail.com",
+                "scm_type": "docs",
+                "scm_scope": "",
+                "spent": "1h10m0s",
+                "spent_minutes": 70
+        }
+]
+```
