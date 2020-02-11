@@ -16,7 +16,7 @@ import (
 func main() {
 	app := &cli.App{
 		Name:   "gitwrk",
-		Usage:  "Extract work log from Git repository",
+		Usage:  "Get work log from Git repository",
 		Action: mainCmd,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
