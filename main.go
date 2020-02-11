@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -108,7 +109,11 @@ func mainCmd(ctx *cli.Context) error {
 
 	// get the worklogs
 	gitDir := ctx.String("git")
-	wlogs := repo.GetWorkLogFromRepo(gitDir, since, till)
+	wlogs, err := repo.GetWorkLogFromRepo(gitDir, since, till)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
 	// filter worklogs
 	wlogs = wlogs.Filter(func(w worklog.WorkLog) bool {
