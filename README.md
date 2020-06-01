@@ -39,8 +39,8 @@ Programming isn't 100% of our daily work of course. Sometimes you have a meeting
 Download the .DEB package and install it
 
 ```
-wget https://github.com/unravela/gitwrk/releases/download/v1.0.6/gitwrk_1.0.6_linux_64-bit.deb
-dpkg -i ./gitwrk_1.0.6_linux_64-bit.deb
+wget https://github.com/unravela/gitwrk/releases/download/v1.0.7/gitwrk_1.0.7_linux_64-bit.deb
+dpkg -i ./gitwrk_1.0.7_linux_64-bit.deb
 ```
 
 Untar the file and copy to the right place.
