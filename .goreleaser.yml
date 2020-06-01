@@ -74,6 +74,9 @@ nfpms:
       - deb
       - rpm
 
+    scripts:
+      postinstall: "scripts/postinstall.sh"
+
     epoch: 1
     release: 1
     vendor: unravela.io
