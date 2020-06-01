@@ -34,8 +34,7 @@ release:
   github:
     owner: unravela
     name: gitwrk
-
-  name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
+  name_template: "{{.ProjectName}}-v{{.Version}}"
 
 scoop:
   bucket:
