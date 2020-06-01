@@ -13,12 +13,16 @@ builds:
     - windows
 
 archives:
-- replacements:
-    darwin: Darwin
-    linux: Linux
-    windows: Windows
-    386: i386
-    amd64: x86_64
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+
+    format_overrides:
+      - goos: windows
+        format: zip
 
 checksum:
   name_template: 'checksums.txt'
@@ -43,3 +47,12 @@ scoop:
   homepage: https://github.com/unravela/gitwrk
   description: A small CLI tool that helps you with monthly reports by extracting working hours directly from git repository.
   license: Apache 2.0
+
+brews:
+  - name: gitwrk
+    github:
+      owner: unravela
+      name: homebrew-tap
+    folder: Formula
+    homepage: https://github.com/unravela/gitwrk
+    description: A small CLI tool that helps you with monthly reports by extracting working hours directly from git repository.
