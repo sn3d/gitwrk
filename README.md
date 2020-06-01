@@ -43,24 +43,28 @@ wget https://github.com/unravela/gitwrk/releases/download/v1.0.7/gitwrk_1.0.7_li
 dpkg -i ./gitwrk_1.0.7_linux_64-bit.deb
 ```
 
-Untar the file and copy to the right place.
-
-```
-tar -xzvf ./gitwrk-1.0-linux-amd64.tar.gz -C /tmp/
-sudo mv /tmp/gitwrk /usr/local/bin
-```
-
-Test if app is running
+Test if app is installed
 
 ```
 gitwrk --help
 ```
 
-### Install on Windows
+### Install on Windows (Scoop)
 
-- Download the gitwrk [archive](https://github.com/unravela/gitwrk/releases/download/v1.0/gitwrk-1.0-win-amd64.zip). 
-- Unzip it and run the `gitwrk.exe`
+First, ensure the [scoop](https://scoop.sh/) is present in your environment. If not install it.
 
+Run commands
+```
+scoop bucket add unravela https://github.com/unravela/scoop-bucket
+scoop install gitwrk
+```
+
+### Install on MacOS (Homebrew)
+
+If you have Homebrew present in your environment, run command:
+```
+brew install unravela/tap/gitwrk
+```
 
 ## How to use
 
