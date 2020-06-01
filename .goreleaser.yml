@@ -12,6 +12,12 @@ builds:
     - darwin
     - windows
 
+  ignore:
+    - goos: darwin
+      goarch: 386
+    - goos: linux
+      goarch: 386
+
 archives:
   - replacements:
       darwin: Darwin
@@ -56,3 +62,22 @@ brews:
     folder: Formula
     homepage: https://github.com/unravela/gitwrk
     description: A small CLI tool that helps you with monthly reports by extracting working hours directly from git repository.
+
+nfpms:
+  -
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    replacements:
+      amd64: 64-bit
+      386: 32-bit
+
+    formats:
+      - deb
+      - rpm
+
+    epoch: 1
+    release: 1
+    vendor: unravela.io
+    homepage: https://github.com/unravela
+    maintainer: zdenko vrabel (zdenko.vrabel@unravela.io)
+    description: A small CLI tool that helps you with monthly reports by extracting working hours directly from git repository.
+    license: Apache 2.0
