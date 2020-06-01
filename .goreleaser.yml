@@ -1,16 +1,17 @@
+project_name: gitwrk
 before:
   hooks:
     - go mod download
 
 builds:
 - env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
 
   goos:
     - linux
     - darwin
     - windows
-    
+
 archives:
 - replacements:
     darwin: Darwin
@@ -22,12 +23,24 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 
-snapshot:
-  name_template: "{{ .Tag }}-next"
-
 changelog:
   sort: asc
   filters:
     exclude:
     - '^docs:'
     - '^test:'
+
+release:
+  github:
+    owner: unravela
+    name: gitwrk
+
+  name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
+
+scoop:
+  bucket:
+    owner: unravela
+    name: scoop-bucket
+  homepage: https://github.com/unravela/gitwrk
+  description: A small CLI tool that helps you with monthly reports by extracting working hours directly from git repository.
+  license: Apache 2.0
