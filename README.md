@@ -1,7 +1,7 @@
 # GitWrk
 GitWrk is a small commandline application that helps you with monthly reports by extracting working hours directly from git repository.
 
-![](gitwrk.gif)
+![](assets/gitwrk.gif)
 
 ## How it works
 

@@ -1,16 +1,15 @@
-package render
+package export
 
 import (
 	"encoding/csv"
+	"github.com/unravela/gitwrk"
 	"io"
 	"strconv"
-
-	"github.com/unravela/gitwrk/worklog"
 )
 
 // Csv is responsible for rendering output
 // when '-o csv' is set.
-func Csv(wlogs worklog.WorkLogs, out io.Writer) {
+func Csv(wlogs gitwrk.WorkLogs, out io.Writer) {
 	csvWriter := csv.NewWriter(out)
 
 	// write header

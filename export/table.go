@@ -1,16 +1,16 @@
-package render
+package export
 
 import (
+	"github.com/unravela/gitwrk"
 	"io"
 	"time"
 
 	"github.com/olekukonko/tablewriter"
-	"github.com/unravela/gitwrk/worklog"
 )
 
 // Table render the collection
 // of work logs into table.
-func Table(wlogs worklog.WorkLogs, out io.Writer) {
+func Table(wlogs gitwrk.WorkLogs, out io.Writer) {
 	table := tablewriter.NewWriter(out)
 
 	// set format of table

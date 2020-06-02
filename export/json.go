@@ -1,11 +1,10 @@
-package render
+package export
 
 import (
 	"encoding/json"
+	"github.com/unravela/gitwrk"
 	"io"
 	"time"
-
-	"github.com/unravela/gitwrk/worklog"
 )
 
 type jsonRecord struct {
@@ -20,7 +19,7 @@ type jsonRecord struct {
 // JSON render the collection of work logs as JSON.
 // For better control over JSON format and names, we're mapping WorkLog into
 // jsonRecord first. Then we're marshalling jsonRecords.
-func JSON(wlogs worklog.WorkLogs, out io.Writer) {
+func JSON(wlogs gitwrk.WorkLogs, out io.Writer) {
 
 	records := make([]jsonRecord, len(wlogs))
 	for i, wlog := range wlogs {

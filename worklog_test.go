@@ -1,4 +1,4 @@
-package worklog
+package gitwrk
 
 import (
 	"testing"
@@ -16,7 +16,7 @@ func TestCreateSimpleWorkLog(t *testing.T) {
 		t.Error("The commit must be 'ScmTypeChore'")
 	}
 
-	if wlog[0].Duration.Minutes() != 90 {
+	if wlog[0].Spent.Minutes() != 90 {
 		t.Error("The duration must be 90 minutes (1h30m)")
 	}
 }

@@ -2,10 +2,14 @@ project_name: gitwrk
 before:
   hooks:
     - go mod download
+    - go test ./...
 
 builds:
 - env:
     - CGO_ENABLED=0
+
+  main: ./cmd/main.go
+  binary: gitwrk
 
   goos:
     - linux

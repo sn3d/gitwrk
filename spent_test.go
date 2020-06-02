@@ -1,4 +1,4 @@
-package worklog
+package gitwrk
 
 import "testing"
 

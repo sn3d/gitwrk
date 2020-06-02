@@ -2,15 +2,13 @@ package main
 
 import (
 	"fmt"
+	"github.com/unravela/gitwrk"
+	"github.com/unravela/gitwrk/export"
+	"github.com/urfave/cli/v2"
 	"log"
 	"os"
 	"strings"
 	"time"
-
-	"github.com/unravela/gitwrk/render"
-	"github.com/unravela/gitwrk/repo"
-	"github.com/unravela/gitwrk/worklog"
-	"github.com/urfave/cli/v2"
 )
 
 func main() {
@@ -109,14 +107,14 @@ func mainCmd(ctx *cli.Context) error {
 
 	// get the worklogs
 	gitDir := ctx.String("git")
-	wlogs, err := repo.GetWorkLogFromRepo(gitDir, since, till)
+	wlogs, err := gitwrk.GetWorkLogFromRepo(gitDir, since, till)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
 	// filter worklogs
-	wlogs = wlogs.Filter(func(w worklog.WorkLog) bool {
+	wlogs = wlogs.Filter(func(w gitwrk.WorkLog) bool {
 
 		// filter by 'author' if it's set
 		author := strings.ToLower(ctx.String("author"))
@@ -142,13 +140,13 @@ func mainCmd(ctx *cli.Context) error {
 	// render output (by desired type)
 	switch strings.ToLower(ctx.String("output")) {
 	case "table":
-		render.Table(wlogs, os.Stdout)
+		export.Table(wlogs, os.Stdout)
 		break
 	case "json":
-		render.JSON(wlogs, os.Stdout)
+		export.JSON(wlogs, os.Stdout)
 		break
 	case "csv":
-		render.Csv(wlogs, os.Stdout)
+		export.Csv(wlogs, os.Stdout)
 		break
 
 	}
