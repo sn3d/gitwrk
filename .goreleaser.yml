@@ -90,3 +90,16 @@ nfpms:
     maintainer: zdenko vrabel (zdenko.vrabel@unravela.io)
     description: A small CLI tool that helps you with monthly reports by extracting working hours directly from git repository.
     license: Apache 2.0
+
+snapcrafts:
+  -
+    name: gitwrk
+    publish: true
+    summary: A small CLI tool that helps you with monthly reports by extracting working hours directly from git repository.
+    description:  |
+      **GitWrk** is a small commandline application that helps you with monthly reports by extracting working hours directly from git repository.
+
+      **Motivation**
+      As freelance developers or outsourced developers, we need to report our work hours. For years we used tools like Jira or some weird 3rd party tools for logging our hours. Having 3 different tools for reporting our work is always exhausting and error prone. Because we love transparency, we want to provide good data.
+
+    license: Apache 2.0
