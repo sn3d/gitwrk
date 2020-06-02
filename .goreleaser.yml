@@ -102,4 +102,4 @@ snapcrafts:
       **Motivation**
       As freelance developers or outsourced developers, we need to report our work hours. For years we used tools like Jira or some weird 3rd party tools for logging our hours. Having 3 different tools for reporting our work is always exhausting and error prone. Because we love transparency, we want to provide good data.
 
-    license: Apache 2.0
+    license: Apache-2.0
