@@ -9,20 +9,25 @@ GitWrk is a small commandline application that helps you with monthly reports by
 
 ## How it works
 
-The idea is very simple. We're following very simple convetion that every commit we spent some times contain this information:
+The idea is very simple. We're following very simple convention. Every commit we spent some times contain this information
+via `spent` [trailer line](https://git-scm.com/docs/git-interpret-trailers). 
 
 ```
-git commit -m “feat: Add feature X to module Y” -m “Spent 4h15m” 
+git commit -m “feat: Add feature X to module Y” -m “spent: 4h15m” 
 ```
 
-For better insights and transparency we adapted [semantic commit message](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) convention the `gitwrk` can process as well.
+Another allowed form is non-trailer convention without `:`:
 
+```
+git commit -m “feat: Add feature X to module Y” -m “Spent 1h20m,7h30m” 
+```
+
+For better insights and transparency we adapted [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
 Then you can easily create monthly report for given contributor by typing:
 
 ```
 > gitwrk --last-month --author zdenko.vrabel@unravela.com
 ```
-
 
 ## Motivation
 
@@ -30,11 +35,16 @@ As freelance developers or outsourced developers, we need to report our work hou
 
 This approach has several advantages: 
 - We’re lazy engineers.  We don’t like to handle 3 different tools for one think. Git is the ultimate tool for our daily work. 
-- Everything in one place. Multiple tools leads to disconnected informations. 
+- Everything in one place. Multiple tools leads to disconnected information. 
 - Better transparency. Customer exactly know how much of time we spent on what.
 - We can analyze where are our bottlenecks, where we’re burning too many of our work time.
 
 Programming isn't 100% of our daily work of course. Sometimes you have a meeting, sometimes some administrative work to do, but programming is still a majority.The `--allow-empty` flag allows you to track also non-coding work. 
+
+Example of meeting:
+```
+    git commit --allow-empty -m "meet: planning for next sprint" -m "spent: 45m" 
+```
 
 ## Installation
 

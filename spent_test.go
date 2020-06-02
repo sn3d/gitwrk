@@ -27,3 +27,12 @@ func TestParseMultipleDurationsCommitMessage(t *testing.T) {
 		t.Error("The second duration need to be 3h20m")
 	}
 }
+
+func TestParseAsGitTrailerLine(t *testing.T) {
+	// the git trailer line is convention described here: https://git-scm.com/docs/git-interpret-trailers
+	d := parseSpent("spent: 1h")
+
+	if len(d) != 1 || d[0].Hours() != 1 {
+		t.Error("The tailer line cannot be parsed correctly")
+	}
+}

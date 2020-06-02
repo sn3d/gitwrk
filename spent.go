@@ -11,12 +11,12 @@ var (
 )
 
 func init() {
-	spentReg, _ = regexp.Compile("(?mi:spen[t|d][ |\\t]+(\\d.*)$)")
+	spentReg, _ = regexp.Compile("(?mi:spen[t|d]:?[ |\\t]+(\\d.*)$)")
 	durationReg, _ = regexp.Compile("(([0-9]+|m|h)+)")
 }
 
 // ParseSpent function consume commit message and
-// parse 'Spent XXXXX' text into Durations
+// parse 'Spent XXXXX' or 'spent: XXXX' text into Durations
 func parseSpent(t string) []time.Duration {
 
 	// first, we check if there is present 'Spent' with duration part.
