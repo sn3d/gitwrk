@@ -1,4 +1,7 @@
 # GitWrk
+[![Release](https://img.shields.io/github/release/unravela/gitwrk.svg?style=flat-square)](https://github.com/goreleaser/goreleaser/releases/latest)
+[![Software License](https://img.shields.io/github/license/unravela/gitwrk?style=flat-square)](/LICENSE.md)
+
 GitWrk is a small commandline application that helps you with monthly reports by extracting working hours directly from git repository.
 
 ![](assets/gitwrk.gif)
