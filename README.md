@@ -66,6 +66,15 @@ If you have Homebrew present in your environment, run command:
 brew install unravela/tap/gitwrk
 ```
 
+### Build from source code
+
+If you have Go (version 1.13) installed on your system, you can use command:
+```
+go get github.com/unravela/gitwrk
+```
+
+This command will download and install `gitwrk` into your `GOPATH/bin` folder.
+
 ## How to use
 
 The best way how to explore what gitwrk offers you is by help page:
