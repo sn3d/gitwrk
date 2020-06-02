@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"gopkg.in/src-d/go-git.v4"
+	"github.com/go-git/go-git/v5"
 )
 
 // GetWorkLogFromRepo go through all commits matching time window and
