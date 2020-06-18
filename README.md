@@ -43,18 +43,17 @@ Programming isn't 100% of our daily work of course. Sometimes you have a meeting
 
 Example of meeting:
 ```
-    git commit --allow-empty -m "meet: planning for next sprint" -m "spent: 45m" 
+git commit --allow-empty -m "meet: planning for next sprint" -m "spent: 45m" 
 ```
 
 ## Installation
 
-### Install on Ubuntu 
+### Install on Ubuntu (Snap)
 
-Download the .DEB package and install it
+You can install the application easily via Snap
 
 ```
-wget https://github.com/unravela/gitwrk/releases/download/v1.0.7/gitwrk_1.0.7_linux_64-bit.deb
-dpkg -i ./gitwrk_1.0.7_linux_64-bit.deb
+snap install gitwrk
 ```
 
 Test if app is installed
@@ -62,6 +61,23 @@ Test if app is installed
 ```
 gitwrk --help
 ```
+
+### Install on Linux (DEB)
+Download the .DEB package and install it
+
+```
+wget https://github.com/unravela/gitwrk/releases/download/v1.0.8/gitwrk_1.0.8_linux_64-bit.deb
+dpkg -i ./gitwrk_1.0.8_linux_64-bit.deb
+```
+
+### Install on Linux (RPM)
+Download the .RPM package and install it
+
+```
+wget https://github.com/unravela/gitwrk/releases/download/v1.0.8/gitwrk_1.0.8_linux_64-bit.rpm
+rpm -U ./gitwrk_1.0.8_linux_64-bit.rpm
+```
+
 
 ### Install on Windows (Scoop)
 
