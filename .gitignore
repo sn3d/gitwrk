@@ -16,6 +16,7 @@ dist/*
 
 # Binaries
 gitwrk
+!/cmd/gitwrk
 gitwrk.exe
 
 # Dependency directories (remove the comment below to include it)
