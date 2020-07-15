@@ -10,6 +10,8 @@ builds:
 
   main: ./cmd/gitwrk
   binary: gitwrk
+  ldflags:
+    - -X 'github.com/unravela/gitwrk.version={{.Version}}'
 
   goos:
     - linux
