@@ -19,7 +19,7 @@ type WorkLogs []WorkLog
 // working logs, depends on message
 func Create(author string, when time.Time, msg string) WorkLogs {
 
-	scm := parseSemanticCommitMessage(msg)
+	scm := ParseSemanticCommitMessage(msg)
 	durations := parseSpent(msg)
 	output := make([]WorkLog, 0)
 

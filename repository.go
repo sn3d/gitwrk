@@ -42,27 +42,7 @@ func GetWorkLogFromRepo(dir string, since time.Time, till time.Time) (WorkLogs, 
 			continue
 		}
 
-		// commit belong to since-till range
 		wlogs := Create(c.Author.Email, c.Author.When, c.Message)
-
-		// we need to filter by since&till values once more
-		// because wlogs might contain older logs. It's caused
-		// when since is 2020-07-04, the commit is with '2020-07-04', but
-		// commit contains 'spent: 5m 6h 8h). That means 5m - 2020-07-04, 6h - 2020-07-03
-		// and 8h - 2020-07-02.
-		//
-		// the bug: https://github.com/unravela/gitwrk/issues/1
-		wlogs = wlogs.Filter(func(log WorkLog) bool {
-			if log.When.Before(since) {
-				return false
-			}
-
-			if log.When.After(till) {
-				return false
-			}
-			return true
-		})
-
 		output = append(output, wlogs...)
 	}
 

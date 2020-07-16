@@ -27,7 +27,7 @@ func init() {
 //
 // If commit message doesn't match to semantic commit message,
 // then it's type NONE where subject is first line of messsage
-func parseSemanticCommitMessage(t string) *SemanticCommitMessage {
+func ParseSemanticCommitMessage(t string) *SemanticCommitMessage {
 
 	// get the first line
 	idx := strings.Index(t, "\n")

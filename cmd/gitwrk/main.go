@@ -26,8 +26,8 @@ func main() {
 			&cli.StringFlag{
 				Name:    "output",
 				Aliases: []string{"o"},
-				Usage:   "Type of output. Can be 'json', 'csv' or 'table'. The default is 'table'",
-				Value:   "table",
+				Usage:   "Type of output. Can be 'json', 'csv', 'markdown' or 'table'. The default is 'markdown'",
+				Value:   "markdown",
 			},
 			&cli.StringFlag{
 				Name:  "author",
@@ -135,6 +135,22 @@ func mainCmd(ctx *cli.Context) error {
 			return false
 		}
 
+		// we need to filter by since&till values once more
+		// because wlogs might contain older logs. It's caused
+		// when since is 2020-07-04, the commit is with '2020-07-04', but
+		// commit contains 'spent: 5m 6h 8h). That means 5m - 2020-07-04, 6h - 2020-07-03
+		// and 8h - 2020-07-02.
+		//
+		// This is best place if we want to avoid multiple loops
+		//
+		// the bug: https://github.com/unravela/gitwrk/issues/1
+		if w.When.Before(since) {
+			return false
+		}
+		if w.When.After(till) {
+			return false
+		}
+
 		return true
 	})
 
@@ -142,6 +158,9 @@ func mainCmd(ctx *cli.Context) error {
 	switch strings.ToLower(ctx.String("output")) {
 	case "table":
 		export.Table(wlogs, os.Stdout)
+		break
+	case "markdown":
+		export.Markdown(wlogs, os.Stdout)
 		break
 	case "json":
 		export.JSON(wlogs, os.Stdout)
