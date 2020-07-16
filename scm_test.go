@@ -4,7 +4,7 @@ import "testing"
 
 func TestMessageWithScope(t *testing.T) {
 	msg := "chore(server): add support for request"
-	semanticMsg := parseSemanticCommitMessage(msg)
+	semanticMsg := ParseSemanticCommitMessage(msg)
 
 	if semanticMsg.Type != "chore" {
 		t.Error("The type must be 'chore'")
@@ -21,7 +21,7 @@ func TestMessageWithScope(t *testing.T) {
 
 func TestMessageWithoutScope(t *testing.T) {
 	msg := "fix: add support for request"
-	semanticMsg := parseSemanticCommitMessage(msg)
+	semanticMsg := ParseSemanticCommitMessage(msg)
 
 	if semanticMsg.Type != "fix" {
 		t.Error("The type must be 'fix'")
@@ -33,7 +33,7 @@ func TestMessageWithoutScope(t *testing.T) {
 }
 
 func TestNonSemanticMessage(t *testing.T) {
-	semanticMsg := parseSemanticCommitMessage("this is some commit message")
+	semanticMsg := ParseSemanticCommitMessage("this is some commit message")
 	if semanticMsg.Type != "none" {
 		t.Error("The type must be 'none'")
 	}
