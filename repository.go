@@ -2,6 +2,7 @@ package gitwrk
 
 import (
 	"fmt"
+	"sort"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -45,6 +46,10 @@ func GetWorkLogFromRepo(dir string, since time.Time, till time.Time) (WorkLogs, 
 		wlogs := Create(c.Author.Email, c.Author.When, c.Message)
 		output = append(output, wlogs...)
 	}
+
+	sort.Slice(output, func(i, j int) bool {
+		return output[i].When.After(output[j].When)
+	})
 
 	return output, nil
 }
