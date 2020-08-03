@@ -94,7 +94,7 @@ func mainCmd(ctx *cli.Context) error {
 
 		firstOfMonth := time.Date(currentYear, currentMonth, 1, 0, 0, 0, 0, currentLocation)
 		since = firstOfMonth.AddDate(0, -1, 0)
-		till = since.AddDate(0, 1, -1)
+		till = since.AddDate(0, 1, 0).Add(-1)
 	}
 
 	if ctx.Bool("current-month") {
@@ -103,7 +103,7 @@ func mainCmd(ctx *cli.Context) error {
 		currentLocation := now.Location()
 
 		since = time.Date(currentYear, currentMonth, 1, 0, 0, 0, 0, currentLocation)
-		till = since.AddDate(0, 1, -1)
+		till = since.AddDate(0, 1, -0).Add(-1)
 	}
 
 	// get the worklogs
