@@ -6,7 +6,13 @@ import (
 )
 
 func TestCreateSimpleWorkLog(t *testing.T) {
-	wlog := Create("justin.bieber", time.Now(), "chore(module): this is some modification\n Spent 1h30m")
+	wlog := CreateWorkLogs(
+		Commit{
+			Author:  "justin.bieber",
+			Message: "chore(module): this is some modification\n Spent 1h30mi",
+			When:    time.Now(),
+		},
+	)
 
 	if len(wlog) != 1 {
 		t.Error("There is only one duration and wlog must be only one")
@@ -22,7 +28,13 @@ func TestCreateSimpleWorkLog(t *testing.T) {
 }
 
 func TestCreateMultipleWorkLogs(t *testing.T) {
-	wlog := Create("justin.bieber", time.Unix(1578614400, 0), "chore(module): this is some modification\n Spent 1h30m 45m 2h30m 55m")
+	wlog := CreateWorkLogs(
+		Commit{
+			Author:  "justin.bieber",
+			Message: "chore(module): this is some modification\n Spent 1h30m 45m 2h30m 55m",
+			When:    time.Unix(1578614400, 0),
+		},
+	)
 
 	if len(wlog) != 4 {
 		t.Error("Must be 4 logs for 4 durations in commit message")

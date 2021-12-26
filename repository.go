@@ -2,32 +2,29 @@ package gitwrk
 
 import (
 	"fmt"
-	"sort"
 	"time"
 
 	"github.com/go-git/go-git/v5"
 )
 
-// GetWorkLogFromRepo go through all commits matching time window and
-// extrac work logs for each commit.
-func GetWorkLogFromRepo(dir string, since time.Time, till time.Time) (WorkLogs, error) {
-
+// returns you all commits in time frame between since and till
+func GetCommits(repoDir string, since time.Time, till time.Time) ([]Commit, error) {
 	// open the repository and get log iterator
-	repo, err := git.PlainOpen(dir)
+	repo, err := git.PlainOpen(repoDir)
 	if err != nil {
-		return nil, fmt.Errorf("Cannot open the %s directory. Check if it's git repository", dir)
+		return nil, fmt.Errorf("Cannot open the %s directory. Check if it's git repository", repoDir)
 	}
 
 	iterator, err := repo.Log(&git.LogOptions{
 		Order: git.LogOrderCommitterTime,
 	})
+
 	if err != nil {
 		return nil, fmt.Errorf("Error in getting data from repository. %s", err)
 	}
 
-	// iterate over all commits until
-	// reach the 'since'
-	output := make([]WorkLog, 0)
+	// iterate over all commits between 'since' and 'till'
+	output := make([]Commit, 0)
 	for {
 		c, err := iterator.Next()
 		if err != nil {
@@ -35,21 +32,15 @@ func GetWorkLogFromRepo(dir string, since time.Time, till time.Time) (WorkLogs, 
 		}
 
 		when := c.Author.When
-		if when.Before(since) {
-			break
+		if when.After(since) && when.Before(till) {
+			commit := Commit{
+				Author:  c.Author.Email,
+				Message: c.Message,
+				When:    when,
+			}
+			output = append(output, commit)
 		}
-
-		if when.After(till) {
-			continue
-		}
-
-		wlogs := Create(c.Author.Email, c.Author.When, c.Message)
-		output = append(output, wlogs...)
 	}
-
-	sort.Slice(output, func(i, j int) bool {
-		return output[i].When.After(output[j].When)
-	})
 
 	return output, nil
 }

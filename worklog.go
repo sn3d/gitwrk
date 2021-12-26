@@ -15,24 +15,24 @@ type WorkLog struct {
 // WorkLogs is array of WorkLog-s
 type WorkLogs []WorkLog
 
-// Create construct the single working log or multiple
-// working logs, depends on message
-func Create(author string, when time.Time, msg string) WorkLogs {
+// Create a single working log or multiple
+// working logs, depends on commit message
+func CreateWorkLogs(commit Commit) WorkLogs {
 
-	scm := ParseSemanticCommitMessage(msg)
-	durations := parseSpent(msg)
+	scm := ParseSemanticCommitMessage(commit.Message)
+	spent := commit.Spent()
 	output := make([]WorkLog, 0)
 
-	for i, d := range durations {
+	for i, s := range spent {
 		// the 'when' is based on duration's index.
 		// The durations are ordered like: now, now - 1 day, now - 2 days, now - 3 days
-		w := when.AddDate(0, 0, (i * -1))
+		w := commit.When.AddDate(0, 0, (i * -1))
 
 		log := WorkLog{
-			Author: author,
+			Author: commit.Author,
 			When:   w,
 			Scm:    scm,
-			Spent:  d.Round(time.Minute),
+			Spent:  s.Round(time.Minute),
 		}
 
 		output = append(output, log)

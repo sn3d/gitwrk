@@ -2,8 +2,11 @@ package gitwrk
 
 import "testing"
 
-func TestParseSimpleCommitMessage(t *testing.T) {
-	d := parseSpent("Spent 1h40m")
+func TestSimpleSpent(t *testing.T) {
+
+	commit := Commit{Message:"Spent 1h40m"}
+
+	d := commit.Spent()
 	if len(d) != 1 {
 		t.Error("The parse function must return only one duration")
 	}
@@ -13,8 +16,10 @@ func TestParseSimpleCommitMessage(t *testing.T) {
 	}
 }
 
-func TestParseMultipleDurationsCommitMessage(t *testing.T) {
-	d := parseSpent("Spent 1h40m, 30m, 3h20m")
+func TestMultiSpent(t *testing.T) {
+	commit := Commit{Message: "Spent 1h40m, 30m, 3h20m" }
+	d := commit.Spent()
+
 	if len(d) != 3 {
 		t.Error("The parse function must return only one duration")
 	}
@@ -30,7 +35,8 @@ func TestParseMultipleDurationsCommitMessage(t *testing.T) {
 
 func TestParseAsGitTrailerLine(t *testing.T) {
 	// the git trailer line is convention described here: https://git-scm.com/docs/git-interpret-trailers
-	d := parseSpent("spent: 1h")
+	commit := Commit{Message: "spent: 1h"}
+	d := commit.Spent()
 
 	if len(d) != 1 || d[0].Hours() != 1 {
 		t.Error("The tailer line cannot be parsed correctly")

@@ -2,20 +2,21 @@ package main
 
 import (
 	"fmt"
-	"github.com/unravela/gitwrk"
-	"github.com/unravela/gitwrk/export"
-	"github.com/urfave/cli/v2"
 	"log"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/unravela/gitwrk"
+	"github.com/unravela/gitwrk/export"
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
 	app := &cli.App{
-		Name:   "gitwrk",
-		Usage:  "Get work log from Git repository",
-		Action: mainCmd,
+		Name:    "gitwrk",
+		Usage:   "Get work log from Git repository",
+		Action:  mainCmd,
 		Version: gitwrk.GetVersion(),
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -106,16 +107,23 @@ func mainCmd(ctx *cli.Context) error {
 		till = since.AddDate(0, 1, -0).Add(-1)
 	}
 
-	// get the worklogs
+	// get and transform commits to worklogs
 	gitDir := ctx.String("git")
-	wlogs, err := gitwrk.GetWorkLogFromRepo(gitDir, since, till)
+	commits, err := gitwrk.GetCommits(gitDir, since, till)
+
+	wlogs := make([]gitwrk.WorkLog, 0)
+	for _, c := range commits {
+		wl := gitwrk.CreateWorkLogs(c)
+		wlogs = append(wlogs, wl...)
+	}
+
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
 	// filter worklogs
-	wlogs = wlogs.Filter(func(w gitwrk.WorkLog) bool {
+	wlogs = gitwrk.WorkLogs(wlogs).Filter(func(w gitwrk.WorkLog) bool {
 
 		// filter by 'author' if it's set
 		author := strings.ToLower(ctx.String("author"))
