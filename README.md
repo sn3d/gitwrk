@@ -10,7 +10,7 @@ GitWrk is a small commandline application that helps you with monthly reports by
 ## How it works
 
 The idea is very simple. We're following very simple convention. Every commit we spent some times contain this information
-via `spent` [trailer line](https://git-scm.com/docs/git-interpret-trailers). 
+via `spent` [trailer line](https://git-scm.com/docs/git-interpret-trailers).
 
 ```
 git commit -m “feat: Add feature X to module Y” -m “spent: 4h15m” 
@@ -43,7 +43,7 @@ Programming isn't 100% of our daily work of course. Sometimes you have a meeting
 
 Example of meeting:
 ```
-git commit --allow-empty -m "meet: planning for next sprint" -m "spent: 45m" 
+git commit --allow-empty -m "meet: planning for next sprint" -m "spent: 45m"
 ```
 
 ## Installation
@@ -147,9 +147,22 @@ Or how many hours spent developers on `module-a` last month:
     gitwrk --scope module-a --last-month
 ```
 
+### Data in message
+
+The `gitwrk` relly and parse commit message and extract some more data.
+As you might see, the required field in every commit is `spent`. But there are
+more.
+
+**spent** - how much of time you spent on commit/task. You can use simple
+format e.g. `1h45m`.
+
+**date** - normally the date of the worklog is same as commit's date. Sometimes
+this is not desired and you want to log some past work. You can use
+`date: 2021-12-24` to override commit's date for worklog.
+
 ### JSON and CSV output
 
-The `gitwrk` can produce also JSON or CSV reports. This is usefull if you want to automatize and export your work hours to external systems. All you need is tell the gitwrk the output format via `--output` or `-o` flag. 
+The `gitwrk` can produce also JSON or CSV reports. This is usefull if you want to automatize and export your work hours to external systems. All you need is tell the gitwrk the output format via `--output` or `-o` flag.
 
 ```
     gitwrk --last-month --author me@copmany.com -o json
