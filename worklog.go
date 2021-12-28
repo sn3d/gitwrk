@@ -21,16 +21,17 @@ func CreateWorkLogs(commit Commit) WorkLogs {
 
 	scm := ParseSemanticCommitMessage(commit.Message)
 	spent := commit.Spent()
+	date := commit.Date()
 	output := make([]WorkLog, 0)
 
 	for i, s := range spent {
-		// the 'when' is based on duration's index.
+		// the worklog's 'when' is based on duration's index.
 		// The durations are ordered like: now, now - 1 day, now - 2 days, now - 3 days
-		w := commit.When.AddDate(0, 0, (i * -1))
+		spentDate := date.AddDate(0, 0, (i * -1))
 
 		log := WorkLog{
 			Author: commit.Author,
-			When:   w,
+			When:   spentDate,
 			Scm:    scm,
 			Spent:  s.Round(time.Minute),
 		}

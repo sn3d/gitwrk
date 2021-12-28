@@ -14,17 +14,19 @@ type Commit struct {
 	// Commit message
 	Message string
 
-	// When was commit made, it's Author's when
+	// When was commit made, don't use it directly, prefer GetDate
 	When time.Time
 }
 
 var (
 	spentReg    *regexp.Regexp
 	durationReg *regexp.Regexp
+	dateReg     *regexp.Regexp
 )
 
 func init() {
-	spentReg, _ = regexp.Compile("(?mi:spen[t|d]:?[ |\\t]+(\\d.*)$)")
+	spentReg, _ = regexp.Compile("(?mi:spen[t|d]:?\\s*(\\d.*)$)")
+	dateReg, _ = regexp.Compile("(?mi:date:?\\s*(\\d{4}-\\d{2}-\\d{2}))")
 	durationReg, _ = regexp.Compile("(([0-9]+|m|h)+)")
 }
 
@@ -53,4 +55,23 @@ func (c Commit) Spent() []time.Duration {
 	}
 
 	return output
+}
+
+// returns you 'date: XXXX-XX-XX' in commit message as Time. If
+// it's not defined or it's missing, then it's used When value
+func (c Commit) Date() time.Time {
+	var err error
+
+	r := dateReg.FindStringSubmatch(c.Message)
+	if len(r) != 2 {
+		return c.When
+	}
+
+	dateStr := r[1]
+	when, err := time.Parse("2006-01-02", dateStr)
+	if err != nil {
+		return c.When
+	}
+
+	return when
 }
